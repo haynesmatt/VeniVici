@@ -1,6 +1,6 @@
 import './Discovery.css'
 import axios from 'axios'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const Discovery = () => {
 
@@ -15,6 +15,7 @@ const Discovery = () => {
     const [origin, setOrigin] = useState(null);
     const [lifeSpan, setLifeSpan] = useState(null);
 
+    const [newBan, setNewBan] = useState(false);
 
     const handleDiscoverClick = () => {
         axios.get(URL + "search" + FLAGS + API_KEY)
@@ -32,6 +33,10 @@ const Discovery = () => {
             })
     };
 
+    const handleBanClick = () => {
+        setNewBan(true);
+    }
+
     return (
 
         <div className='Discovery'>
@@ -39,7 +44,7 @@ const Discovery = () => {
           <h1>Veni Vici!</h1>
           <h2 style={{ display: showElement ? 'block' : 'none' }}>{name}</h2>
           <div className='attributes'>
-            <button className='attribute' style={{ display: showElement ? 'block' : 'none' }}>{origin}</button>
+            <button className='attribute' onClick={handleBanClick} style={{ display: showElement ? 'block' : 'none' }}>{origin}</button>
             <button className='attribute' style={{ display: showElement ? 'block' : 'none' }}>{lifeSpan}</button>
           </div>
           <img src={image}></img>
