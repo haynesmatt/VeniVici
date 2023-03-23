@@ -2,10 +2,14 @@
     background-color: #283618;
     width: 325px;
     height: auto;
-    padding: 10px 24px;
+    padding: 20px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     border-radius: 30px;
+}
+
+.attribute {
+    background-color: #bc6c25;
 }
