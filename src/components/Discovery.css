@@ -11,10 +11,15 @@
 
 .attribute {
     background-color: #bc6c25;
+    margin: 10px;
 }
 
 img {
     height: 250px;
     width: auto;
     padding: 30px 0;
+}
+
+.attributes {
+    display: flex;
 }

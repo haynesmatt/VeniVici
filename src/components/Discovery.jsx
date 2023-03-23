@@ -4,20 +4,32 @@ import { useState, useEffect } from 'react';
 
 const Discovery = () => {
 
-    const URL = 'https://api.thecatapi.com/v1/images/search';
+    const API_KEY = import.meta.env.VITE_APP_API_KEY;
+    const URL = 'https://api.thecatapi.com/v1/images/';
+    const FLAGS = '?has_breeds=1&api_key=' + API_KEY;
 
-    axios.get(URL).then((response)=> console.log(response) ).catch(error => console.error(error));
+    const [image, setImage] = useState(null);
+    const [imageID, setImageID] = useState('cSzaNCgq2');
+    const [showElement, setShowELement] = useState(false);
+    const [name, setName] = useState(null);
+    const [origin, setOrigin] = useState(null);
+    const [lifeSpan, setLifeSpan] = useState(null);
 
-    const [image, setImage] = useState('https://cdn2.thecatapi.com/images/4hb.gif');
 
     const handleDiscoverClick = () => {
-        axios.get(URL)
+        axios.get(URL + "search" + FLAGS + API_KEY)
             .then(response => {
+                setShowELement(true);
                 setImage(response.data[0].url);
+                setImageID(response.data[0].id);
             })
-            .catch(error => {
-                console.error(error);
-            });
+
+        axios.get(URL + imageID)
+            .then(response => {
+                setName(response.data.breeds[0].name)
+                setOrigin(response.data.breeds[0].origin)
+                setLifeSpan(response.data.breeds[0].life_span)
+            })
     };
 
     return (
@@ -25,9 +37,10 @@ const Discovery = () => {
         <div className='Discovery'>
 
           <h1>Veni Vici!</h1>
-          <h2>Cat</h2>
+          <h2 style={{ display: showElement ? 'block' : 'none' }}>{name}</h2>
           <div className='attributes'>
-            <button className='attribute'>Somali</button>
+            <button className='attribute' style={{ display: showElement ? 'block' : 'none' }}>{origin}</button>
+            <button className='attribute' style={{ display: showElement ? 'block' : 'none' }}>{lifeSpan}</button>
           </div>
           <img src={image}></img>
 
